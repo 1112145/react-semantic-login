@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-import {Menu} from 'semantic-ui-react';
+import NavBar from './components/NavBar';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-      <Menu inverted>
-        <Menu.Item active={true} name='Test'></Menu.Item>
-        <Menu.Item name='Go go go'></Menu.Item>
-      </Menu>
+        <NavBar logo={"https://react.semantic-ui.com/logo.png "}
+          leftItem={[
+            { as: "a", content: "Home", key: "home" },
+            { as: "a", content: "Users", key: "users" }
+          ]} />
       </div>
     );
   }
