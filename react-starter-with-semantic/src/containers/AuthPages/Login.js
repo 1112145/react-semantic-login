@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, GridRow, GridColumn, Form, Icon, Header, Segment, Container } from 'semantic-ui-react';
+import { Grid, GridRow, GridColumn, Form, Icon, Header, Segment, Image } from 'semantic-ui-react';
 
 export default class Login extends Component {
     render() {
@@ -7,7 +7,8 @@ export default class Login extends Component {
             <Grid centered inverted>
                 <GridColumn computer={4} tablet={10} mobile={16}  >
                     <GridRow centered>
-                        <br /><Header as='h1' textAlign='center'>Log In</Header><br />
+                        <br /><Image centered src='https://www.dirox.net/wp-content/uploads/2017/09/LOGO-DIROX_SMALL.png' size='tiny' />
+                        <Header as='h1' textAlign='center'>Log In</Header><br />
                     </GridRow>
                     <GridRow centered>
                         <Form as={Segment} textAlign='center' >
