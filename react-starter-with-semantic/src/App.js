@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import NavBar from './components/NavBar';
-import { Image } from 'semantic-ui-react';
+import { Image, Button } from 'semantic-ui-react';
 
 const leftItems = [
   { as: "a", content: "Home", key: "home" },
@@ -10,7 +10,8 @@ const leftItems = [
 ]
 
 const rightItems = [
-  { content: <Image src='https://image.flaticon.com/icons/svg/145/145859.svg' onClick={() => { console.log('ssss') }} avatar />, key: 'avatar' }
+  { content: <Image src='https://image.flaticon.com/icons/svg/145/145859.svg' onClick={() => { console.log('ssss') }} avatar />, key: 'avatar' },
+  { content: <Button>Log out</Button>, key: 'logout' }
 ]
 
 class App extends Component {
