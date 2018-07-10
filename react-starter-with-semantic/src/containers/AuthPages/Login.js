@@ -38,8 +38,8 @@ export default class Login extends Component {
     render() {
         const { error } = this.state;
         return (
-            <Grid centered inverted>
-                <GridColumn computer={4} tablet={10} mobile={16}  >
+            <Grid centered inverted padded>
+                <GridColumn computer={4} tablet={10} mobile={16} >
                     <GridRow centered>
                         <br /><Image centered src='https://www.dirox.net/wp-content/uploads/2017/09/LOGO-DIROX_SMALL.png' size='tiny' />
                         <Header as='h1' textAlign='center'>Log In</Header><br />
