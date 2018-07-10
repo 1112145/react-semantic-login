@@ -59,7 +59,7 @@ export default class Login extends Component {
                         <Form as={Segment} textAlign='center'>
                             <Form.Input name='email' onChange={this.handleChange} icon='at' iconPosition='left' placeholder='Email Address' fluid error={isNotEmpty(error.email)} />
                             <Message visible={isNotEmpty(error.email)} error header={form_msg.invalid_email} content={error.email} />
-                            <Form.Input name='password' onChange={this.handleChange} icon='lock' iconPosition='left' placeholder='Password' type='password' fluid error={isNotEmpty(error.email)} />
+                            <Form.Input name='password' onChange={this.handleChange} icon='lock' iconPosition='left' placeholder='Password' type='password' fluid error={isNotEmpty(error.password)} />
                             <Message visible={isNotEmpty(error.password)} error header={form_msg.invalid_password} content={error.password} />
                             <Form.Button onClick={this.handleOnClickLogin} fluid color='green'>Log In</Form.Button>
                             <Form.Button fluid color='facebook'><Icon name='facebook' position='left' />Log In with FaceBook</Form.Button>
