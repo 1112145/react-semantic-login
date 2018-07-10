@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Grid, GridRow, GridColumn, Form, Icon, Header, Segment, Image, Message } from 'semantic-ui-react';
 import { form_msg } from '../../constant';
-import v from 'validator';
-import { isNotEmpty } from '../../common/customValidator';
+import { isEmpty, isNotEmpty, isNotEmail, runValidator } from '../../common/customValidator';
 
 export default class Login extends Component {
 
@@ -14,10 +13,19 @@ export default class Login extends Component {
             password: '',
             error: {}
         }
+
+        this.validator = {
+            email: [
+                { method: isEmpty, message: form_msg.empty_email },
+                { method: isNotEmail, message: form_msg.wrong_email_format }],
+            password: [{ method: isEmpty, message: form_msg.empty_password }]
+        }
     }
 
     handleOnClickLogin = () => {
-        const error = this.validateForm();
+        const { email, password } = this.state;
+        const dataObject = { email: email, password: password };
+        const error = runValidator(dataObject, this.validator);
         if (error) {
             this.setState({ error: error })
         }
@@ -26,25 +34,6 @@ export default class Login extends Component {
     handleChange = (e, { name, value }) => {
         this.setState({ [name]: value });
     }
-
-    validateForm() {
-        const error = {}
-
-        const { email, password } = this.state;
-
-        if (v.isEmpty(email)) {
-            error.email = form_msg.empty_email;
-        } else if (!v.isEmail(email)) {
-            error.email = form_msg.wrong_email_format;
-        }
-
-        if (v.isEmpty(password)) {
-            error.password = form_msg.empty_password;
-        }
-
-        return error;
-    }
-
 
     render() {
         const { error } = this.state;
