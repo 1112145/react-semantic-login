@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { Grid, GridRow, GridColumn, Form, Icon, Header, Segment, Image, Message } from 'semantic-ui-react';
-import { form_msg } from '../../constant';
+import { formMsg } from '../../constant';
 import { isEmpty, isNotEmpty, isNotEmail, runValidator } from '../../common/customValidator';
 import { login } from '../../services/user.service';
 import _ from 'lodash';
+import { connect } from 'react-redux';
+import { loginSuccess, loginFailure } from '../../actions/user.action';
 
-export default class Login extends Component {
+class Login extends Component {
 
     constructor(props) {
         super(props);
@@ -18,25 +20,25 @@ export default class Login extends Component {
 
         this.validator = {
             email: [
-                { method: isEmpty, message: form_msg.empty_email },
-                { method: isNotEmail, message: form_msg.wrong_email_format }],
-            password: [{ method: isEmpty, message: form_msg.empty_password }]
+                { method: isEmpty, message: formMsg.empty_email },
+                { method: isNotEmail, message: formMsg.wrong_email_format }],
+            password: [{ method: isEmpty, message: formMsg.empty_password }]
         }
+
     }
 
     handleOnClickLogin = () => {
         const { email, password } = this.state;
         const dataObject = { email: email, password: password };
         const error = runValidator(dataObject, this.validator);
-        if (!_.isEmpty(error)) {
-            this.setState({ error: error })
-        } else {
+        if (_.isEmpty(error)) {
             login({ email: email, password: password }).then(res => {
-                console.log(res);
+                this.props.dispatch(loginSuccess(res.data));
             }).catch(error => {
-                console.log(error.message);
+                this.props.dispatch(loginFailure(error.response.data));
             })
         }
+        this.setState({ error: error });
     }
 
     handleChange = (e, { name, value }) => {
@@ -55,9 +57,9 @@ export default class Login extends Component {
                     <GridRow centered>
                         <Form as={Segment} textAlign='center'>
                             <Form.Input name='email' onChange={this.handleChange} icon='at' iconPosition='left' placeholder='Email Address' fluid error={isNotEmpty(error.email)} />
-                            <Message visible={isNotEmpty(error.email)} error header={form_msg.invalid_email} content={error.email} />
+                            <Message visible={isNotEmpty(error.email)} error header={formMsg.invalid_email} content={error.email} />
                             <Form.Input name='password' onChange={this.handleChange} icon='lock' iconPosition='left' placeholder='Password' type='password' fluid error={isNotEmpty(error.password)} />
-                            <Message visible={isNotEmpty(error.password)} error header={form_msg.invalid_password} content={error.password} />
+                            <Message visible={isNotEmpty(error.password)} error header={formMsg.invalid_password} content={error.password} />
                             <Form.Button onClick={this.handleOnClickLogin} fluid color='green'>Log In</Form.Button>
                             <Form.Button fluid color='facebook'><Icon name='facebook' position='left' />Log In with FaceBook</Form.Button>
                             <Form.Button fluid color='google plus'><Icon name='google plus' />Log In with Google+</Form.Button>
@@ -73,3 +75,5 @@ export default class Login extends Component {
         )
     }
 }
+
+export default connect()(Login);

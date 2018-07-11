@@ -1,8 +1,15 @@
-import { user_constant } from "../constant";
+import { userConstant } from "../constant";
 
 export const loginSuccess = (payload) => {
     return {
-        type: user_constant.LOGIN_SUCCESS,
+        type: userConstant.LOGIN_SUCCESS,
+        payload
+    }
+}
+
+export const loginFailure = (payload) => {
+    return {
+        type: userConstant.LOGIN_FAILURE,
         payload
     }
 }

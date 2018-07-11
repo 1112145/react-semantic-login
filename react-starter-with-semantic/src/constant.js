@@ -1,4 +1,4 @@
-export const form_msg = {
+export const formMsg = {
     invalid_email: 'Invalid Email',
     invalid_password: 'Invalid Password',
     wrong_email_format: 'Wrong email format',
@@ -6,7 +6,7 @@ export const form_msg = {
     empty_password: 'Empty Password'
 }
 
-export const user_constant = {
+export const userConstant = {
     LOGIN_SUCCESS: 'Login success!',
     LOGIN_FAILURE: 'Login failure!'
 }
