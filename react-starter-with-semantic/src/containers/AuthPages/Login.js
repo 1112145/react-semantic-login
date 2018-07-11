@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Grid, GridRow, GridColumn, Form, Icon, Header, Segment, Image, Message } from 'semantic-ui-react';
 import { form_msg } from '../../constant';
 import { isEmpty, isNotEmpty, isNotEmail, runValidator } from '../../common/customValidator';
+import { login } from '../../services/user.service';
+import _ from 'lodash';
 
 export default class Login extends Component {
 
@@ -26,8 +28,14 @@ export default class Login extends Component {
         const { email, password } = this.state;
         const dataObject = { email: email, password: password };
         const error = runValidator(dataObject, this.validator);
-        if (error) {
+        if (!_.isEmpty(error)) {
             this.setState({ error: error })
+        } else {
+            login({ email: email, password: password }).then(res => {
+                console.log(res);
+            }).catch(error => {
+                console.log(error.message);
+            })
         }
     }
 
@@ -41,7 +49,7 @@ export default class Login extends Component {
             <Grid centered inverted padded>
                 <GridColumn computer={4} tablet={10} mobile={16} >
                     <GridRow centered>
-                        <br /><Image centered src='https://www.dirox.net/wp-content/uploads/2017/09/LOGO-DIROX_SMALL.png' size='tiny' />
+                        <br /><Image centered src={this.props.appLogo} size='tiny' />
                         <Header as='h1' textAlign='center'>Log In</Header><br />
                     </GridRow>
                     <GridRow centered>

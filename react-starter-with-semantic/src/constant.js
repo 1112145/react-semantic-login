@@ -5,3 +5,8 @@ export const form_msg = {
     empty_email: 'Empty Email',
     empty_password: 'Empty Password'
 }
+
+export const user_constant = {
+    LOGIN_SUCCESS: 'Login success!',
+    LOGIN_FAILURE: 'Login failure!'
+}
