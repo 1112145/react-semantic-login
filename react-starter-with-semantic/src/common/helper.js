@@ -1,9 +1,10 @@
 import _ from 'lodash';
+import { createBrowserHistory } from 'history';
 
 export const intellisense = (dataSource, keyWord, key) => {
     var results = [];
 
-    if (keyWord.length == 0) return dataSource;
+    if (keyWord.length === 0) return dataSource;
 
     const re = new RegExp(_.escapeRegExp(keyWord), 'i');
 
@@ -14,3 +15,6 @@ export const intellisense = (dataSource, keyWord, key) => {
     return results;
 
 }
+
+export const browserHistory = createBrowserHistory();
+

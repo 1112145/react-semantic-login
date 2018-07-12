@@ -6,6 +6,10 @@ import { login } from '../services/user.service';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { loginSuccess, loginFailure } from '../actions/user.action';
+import config from '../config';
+import { browserHistory } from '../common/helper';
+
+
 
 class LoginPage extends Component {
 
@@ -28,6 +32,12 @@ class LoginPage extends Component {
 
     }
 
+    componentWillMount() {
+        if (localStorage.getItem('user')) {
+            browserHistory.push('/');
+        }
+    }
+
     handleOnClickLogin = () => {
         const { email, password } = this.state;
         const dataObject = { email: email, password: password };
@@ -35,13 +45,18 @@ class LoginPage extends Component {
         if (_.isEmpty(error)) {
             login({ email: email, password: password }).then(res => {
                 this.setState({ serverError: '' });
+                if (res.data.access_token) {
+                    localStorage.setItem('user', JSON.stringify(res.data.data));
+                }
                 this.props.dispatch(loginSuccess(res.data));
+                browserHistory.push('/');
             }).catch(error => {
                 this.setState({ serverError: error.response.data.message });
                 this.props.dispatch(loginFailure(error.response.data));
             })
         }
         this.setState({ error: error });
+
     }
 
     handleChange = (e, { name, value }) => {
@@ -54,7 +69,7 @@ class LoginPage extends Component {
             <Grid centered inverted padded>
                 <GridColumn computer={4} tablet={10} mobile={16} >
                     <GridRow centered>
-                        <br /><Image centered src={this.props.appLogo} size='tiny' />
+                        <br /><Image centered src={config.logo} size='tiny' />
                         <Header as='h1' textAlign='center'>Log In</Header><br />
                     </GridRow>
                     <GridRow centered>
@@ -78,4 +93,8 @@ class LoginPage extends Component {
     }
 }
 
-export default connect()(LoginPage);
+const mapStateToProps = (state) => {
+    return { authentication: state.authentication }
+}
+
+export default connect(mapStateToProps)(LoginPage);
