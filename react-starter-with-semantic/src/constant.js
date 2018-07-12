@@ -15,3 +15,7 @@ export const appConstant = {
     LOADING: 'Loading',
     LOADED: 'Loaded'
 }
+
+export const localStorageConstant = {
+    USER: 'user'
+}

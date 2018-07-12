@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Grid, GridRow, GridColumn, Form, Header, Segment, Image, Message } from 'semantic-ui-react';
-import { formMsg } from '../constant';
+import { formMsg, localStorageConstant } from '../constant';
 import { isEmpty, isNotEmpty, isNotEmail, runValidator } from '../common/customValidator';
 import { login } from '../services/user.service';
 import _ from 'lodash';
@@ -33,7 +33,7 @@ class LoginPage extends Component {
     }
 
     componentWillMount() {
-        if (localStorage.getItem('user')) {
+        if (localStorage.getItem(localStorageConstant.USER)) {
             browserHistory.push('/');
         }
     }
@@ -46,7 +46,7 @@ class LoginPage extends Component {
             login({ email: email, password: password }).then(res => {
                 this.setState({ serverError: '' });
                 if (res.data.access_token) {
-                    localStorage.setItem('user', JSON.stringify(res.data.data));
+                    localStorage.setItem(localStorageConstant.USER, JSON.stringify(res.data.data));
                 }
                 this.props.dispatch(loginSuccess(res.data));
                 browserHistory.push('/');
