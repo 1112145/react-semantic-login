@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, GridRow, GridColumn, Form, Icon, Header, Segment, Image, Message } from 'semantic-ui-react';
+import { Grid, GridRow, GridColumn, Form, Header, Segment, Image, Message } from 'semantic-ui-react';
 import { formMsg } from '../constant';
 import { isEmpty, isNotEmpty, isNotEmail, runValidator } from '../common/customValidator';
 import { login } from '../services/user.service';
@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { loginSuccess, loginFailure } from '../actions/user.action';
 
-class Login extends Component {
+class LoginPage extends Component {
 
     constructor(props) {
         super(props);
@@ -15,7 +15,8 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            error: {}
+            error: {},
+            serverError: ''
         }
 
         this.validator = {
@@ -33,8 +34,10 @@ class Login extends Component {
         const error = runValidator(dataObject, this.validator);
         if (_.isEmpty(error)) {
             login({ email: email, password: password }).then(res => {
+                this.setState({ serverError: '' });
                 this.props.dispatch(loginSuccess(res.data));
             }).catch(error => {
+                this.setState({ serverError: error.response.data.message });
                 this.props.dispatch(loginFailure(error.response.data));
             })
         }
@@ -61,13 +64,12 @@ class Login extends Component {
                             <Form.Input name='password' onChange={this.handleChange} icon='lock' iconPosition='left' placeholder='Password' type='password' fluid error={isNotEmpty(error.password)} />
                             <Message visible={isNotEmpty(error.password)} error header={formMsg.invalid_password} content={error.password} />
                             <Form.Button onClick={this.handleOnClickLogin} fluid color='green'>Log In</Form.Button>
-                            <Form.Button fluid color='facebook'><Icon name='facebook' position='left' />Log In with FaceBook</Form.Button>
-                            <Form.Button fluid color='google plus'><Icon name='google plus' />Log In with Google+</Form.Button>
                             <a href='/#'>Forgot password?</a>
                         </Form>
                     </GridRow>
                     <GridRow centered>
                         <br />
+                        <Header textAlign='center' color='red' as='h4' visible={this.state.serverError} content={this.state.serverError} />
                         <Header textAlign='center' as='h4'>Dont' have an account?<a href='/#'> Sign up</a></Header>
                     </GridRow>
                 </GridColumn>
@@ -76,4 +78,4 @@ class Login extends Component {
     }
 }
 
-export default connect()(Login);
+export default connect()(LoginPage);
