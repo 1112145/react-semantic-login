@@ -33,10 +33,8 @@ class Login extends Component {
         const error = runValidator(dataObject, this.validator);
         if (_.isEmpty(error)) {
             login({ email: email, password: password }).then(res => {
-                console.log(res);
                 this.props.dispatch(loginSuccess(res.data));
             }).catch(error => {
-                console.log(error);
                 this.props.dispatch(loginFailure(error.response.data));
             })
         }
