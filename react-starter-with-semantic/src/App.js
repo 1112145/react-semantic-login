@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Login from './containers/AuthPages/Login';
+import Login from './containers/Login';
 import config from './config';
 
 class App extends Component {

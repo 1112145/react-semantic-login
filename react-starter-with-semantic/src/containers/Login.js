@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Grid, GridRow, GridColumn, Form, Icon, Header, Segment, Image, Message } from 'semantic-ui-react';
-import { formMsg } from '../../constant';
-import { isEmpty, isNotEmpty, isNotEmail, runValidator } from '../../common/customValidator';
-import { login } from '../../services/user.service';
+import { formMsg } from '../constant';
+import { isEmpty, isNotEmpty, isNotEmail, runValidator } from '../common/customValidator';
+import { login } from '../services/user.service';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { loginSuccess, loginFailure } from '../../actions/user.action';
+import { loginSuccess, loginFailure } from '../actions/user.action';
 
 class Login extends Component {
 
@@ -33,8 +33,10 @@ class Login extends Component {
         const error = runValidator(dataObject, this.validator);
         if (_.isEmpty(error)) {
             login({ email: email, password: password }).then(res => {
+                console.log(res);
                 this.props.dispatch(loginSuccess(res.data));
             }).catch(error => {
+                console.log(error);
                 this.props.dispatch(loginFailure(error.response.data));
             })
         }

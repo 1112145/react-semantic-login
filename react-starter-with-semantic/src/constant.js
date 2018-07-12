@@ -10,3 +10,8 @@ export const userConstant = {
     LOGIN_SUCCESS: 'Login success!',
     LOGIN_FAILURE: 'Login failure!'
 }
+
+export const appConstant = {
+    LOADING: 'Loading',
+    LOADED: 'Loaded'
+}

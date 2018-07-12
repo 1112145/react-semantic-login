@@ -5,11 +5,9 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 import 'semantic-ui-css/semantic.min.css';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from './reducers';
+import { store } from './store';
 
-const store = createStore(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f);
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 registerServiceWorker();
