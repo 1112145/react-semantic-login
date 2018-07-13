@@ -15,6 +15,12 @@ export const authentication = (state = initialState, action) => {
                 loggedIn: true,
                 error: action.payload
             };
+        case userConstant.LOGOUT:
+            localStorage.removeItem(localStorageConstant.USER);
+            return {
+                loggedIn: false,
+                error: action.payload
+            };
         default:
             return state
     }

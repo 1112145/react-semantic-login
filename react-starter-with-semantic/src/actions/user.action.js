@@ -14,3 +14,8 @@ export const loginFailure = (payload) => {
     }
 }
 
+export const logout = () => {
+    return {
+        type: userConstant.LOGOUT
+    }
+}
