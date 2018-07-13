@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { withHeader } from './AppHeader';
 
-export default class HomePage extends Component {
+class HomePage extends Component {
     render() {
         return (
             <div>
-                Home Page
+                This is Home Page
             </div>
         )
     }
 }
+
+export default withHeader(HomePage);

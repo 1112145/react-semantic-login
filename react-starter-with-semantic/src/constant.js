@@ -1,3 +1,4 @@
+
 export const formMsg = {
     invalid_email: 'Invalid Email',
     invalid_password: 'Invalid Password',
@@ -8,7 +9,8 @@ export const formMsg = {
 
 export const userConstant = {
     LOGIN_SUCCESS: 'Login success!',
-    LOGIN_FAILURE: 'Login failure!'
+    LOGIN_FAILURE: 'Login failure!',
+    LOGOUT: 'Logout!'
 }
 
 export const appConstant = {
@@ -19,3 +21,4 @@ export const appConstant = {
 export const localStorageConstant = {
     USER: 'user'
 }
+

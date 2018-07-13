@@ -1,5 +1,7 @@
 import _ from 'lodash';
 import { createBrowserHistory } from 'history';
+import React from 'react';
+import { Icon } from "semantic-ui-react";
 
 export const intellisense = (dataSource, keyWord, key) => {
     var results = [];
@@ -18,3 +20,16 @@ export const intellisense = (dataSource, keyWord, key) => {
 
 export const browserHistory = createBrowserHistory();
 
+
+export const sidebarMenu = [
+    {
+        content: <div><Icon name='home' />Home page</div>,
+        key: 'home',
+        onClick: () => { browserHistory.push('/') }
+    },
+    {
+        content: <div><Icon name='setting' />Setting</div>,
+        key: 'setting',
+        onClick: () => { browserHistory.push('/setting') }
+    }
+]
