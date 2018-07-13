@@ -7,6 +7,7 @@ import AppLoader from './components/AppLoader';
 import PrivateRoute from './components/PrivateRoute';
 import HomePage from './containers/HomePage';
 import { browserHistory } from './common/helper';
+import Setting from './containers/Setting';
 
 export default class App extends Component {
   render() {
@@ -15,6 +16,7 @@ export default class App extends Component {
         <Router history={browserHistory}>
           <Switch>
             <Route path="/login" component={LoginPage} />
+            <PrivateRoute path="/setting" component={Setting} />
             <PrivateRoute exact path="/" component={HomePage} />
           </Switch>
         </Router>

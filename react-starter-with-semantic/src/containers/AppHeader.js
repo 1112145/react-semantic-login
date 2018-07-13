@@ -6,7 +6,7 @@ import { Button, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { logout } from '../actions/user.action';
 import { browserHistory } from '../common/helper';
-import { sidebarMenu } from '../constant';
+import { sidebarMenu } from '../common/helper';
 
 class AppHeader extends Component {
 

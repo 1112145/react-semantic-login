@@ -1,6 +1,3 @@
-import React from 'react';
-import { Icon, Menu } from "semantic-ui-react";
-
 
 export const formMsg = {
     invalid_email: 'Invalid Email',
@@ -25,7 +22,3 @@ export const localStorageConstant = {
     USER: 'user'
 }
 
-export const sidebarMenu = [
-    { content: <div><Icon name='home' />Dashboard</div>, key: 'dashboard' },
-    { content: <div><Icon name='setting' />Setting</div>, key: 'setting' }
-]
