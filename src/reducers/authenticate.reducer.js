@@ -15,6 +15,16 @@ export const authentication = (state = initialState, action) => {
                 loggedIn: true,
                 error: action.payload
             };
+        case userConstant.REGISTER_SUCCESS:
+            return {
+                loggedIn: true,
+                user: action.payload
+            };
+        case userConstant.REGISTER_FAILURE:
+            return {
+                loggedIn: true,
+                error: action.payload
+            };
         case userConstant.LOGOUT:
             localStorage.removeItem(localStorageConstant.USER);
             return {

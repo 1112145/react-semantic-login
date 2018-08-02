@@ -85,7 +85,7 @@ class LoginPage extends Component {
                     <GridRow centered>
                         <br />
                         <Header textAlign='center' color='red' as='h4' visible={this.state.serverError} content={this.state.serverError} />
-                        <Header textAlign='center' as='h4'>Dont' have an account?<a href='/#'> Sign up</a></Header>
+                        <Header textAlign='center' as='h4'>Dont' have an account?<a href='/register'> Register</a></Header>
                     </GridRow>
                 </GridColumn>
             </Grid>
