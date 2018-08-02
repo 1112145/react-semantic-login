@@ -1,1 +1,1 @@
-Live Preview: semantic-starter.herokuapp.com
+Live Preview: https://semantic-starter.herokuapp.com
