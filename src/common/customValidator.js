@@ -12,7 +12,7 @@ export const isNotEmpty = (value) => {
     return value && !v.isEmpty(value);
 }
 
-export const runValidator = (dataObject, validator) => {
+export const validate = (dataObject, validator) => {
     const error = {}
     for (const key in dataObject) {
         const patterns = validator[key];

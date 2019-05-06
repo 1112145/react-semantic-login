@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Grid, GridRow, GridColumn, Form, Header, Segment, Image, Message } from 'semantic-ui-react';
 import { formMsg, localStorageConstant } from '../constant';
-import { isEmpty, isNotEmpty, isNotEmail, runValidator } from '../common/customValidator';
+import { isEmpty, isNotEmpty, isNotEmail, validate } from '../common/customValidator';
 import { register } from '../services/user.service';
 import _ from 'lodash';
 import { connect } from 'react-redux';
@@ -51,7 +51,7 @@ class RegisterPage extends Component {
     handleOnClickRegister = () => {
         const { email, password, passwordConfirm } = this.state;
         const dataObject = { email: email, password: password, passwordConfirm: passwordConfirm };
-        const error = runValidator(dataObject, this.validator);
+        const error = validate(dataObject, this.validator);
         if (_.isEmpty(error)) {
             register({ email: email, password: password }).then(res => {
                 this.setState({ serverError: '' });
