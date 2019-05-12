@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import NavBar from '../components/NavBar';
+import NavBar from '../../components/NavBar';
 
-import config from '../config';
+import config from '../../config';
 import { Button, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { logout } from '../actions/user.action';
-import { browserHistory } from '../common/helper';
-import { sidebarMenu } from '../common/helper';
+import { logout } from '../../actions/user.action';
+import { browserHistory } from '../../common/helper';
+import { sidebarMenu } from '../../common/helper';
 
 class AppHeader extends Component {
 

@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import { Grid, GridRow, GridColumn, Form, Header, Segment, Image, Message } from 'semantic-ui-react';
-import { formMsg, localStorageConstant } from '../constant';
-import { isEmpty, isNotEmpty, isNotEmail, validate } from '../common/customValidator';
-import { login } from '../services/user.service';
+import { formMsg, localStorageConstant } from '../../constant';
+import { isEmpty, isNotEmpty, isNotEmail, validate } from '../../common/customValidator';
+import { register } from '../../services/user.service';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { loginSuccess, loginFailure } from '../actions/user.action';
-import config from '../config';
-import { browserHistory } from '../common/helper';
+import { registerSuccess, registerFailure } from '../../actions/user.action';
+import config from '../../config';
+import { browserHistory } from '../../common/helper';
 
 
 
-class LoginPage extends Component {
+class RegisterPage extends Component {
 
     constructor(props) {
         super(props);
@@ -19,6 +19,7 @@ class LoginPage extends Component {
         this.state = {
             email: '',
             password: '',
+            passwordConfirm: '',
             error: {},
             serverError: ''
         }
@@ -27,9 +28,18 @@ class LoginPage extends Component {
             email: [
                 { method: isEmpty, message: formMsg.empty_email },
                 { method: isNotEmail, message: formMsg.wrong_email_format }],
-            password: [{ method: isEmpty, message: formMsg.empty_password }]
+            password: [{ method: isEmpty, message: formMsg.empty_password }],
+            passwordConfirm: [
+                { method: isEmpty, message: formMsg.empty_confirm },
+                { method: this.isPasswordMissMatch, message: formMsg.password_missmatch }
+            ],
         }
 
+    }
+
+    isPasswordMissMatch = (passwordConfirm) => {
+        const { password } = this.state;
+        return password !== passwordConfirm;
     }
 
     componentWillMount() {
@@ -38,21 +48,21 @@ class LoginPage extends Component {
         }
     }
 
-    handleOnClickLogin = () => {
-        const { email, password } = this.state;
-        const dataObject = { email: email, password: password };
+    handleOnClickRegister = () => {
+        const { email, password, passwordConfirm } = this.state;
+        const dataObject = { email: email, password: password, passwordConfirm: passwordConfirm };
         const error = validate(dataObject, this.validator);
         if (_.isEmpty(error)) {
-            login({ email: email, password: password }).then(res => {
+            register({ email: email, password: password }).then(res => {
                 this.setState({ serverError: '' });
                 if (res.data.access_token) {
                     localStorage.setItem(localStorageConstant.USER, JSON.stringify(res.data.data));
                 }
-                this.props.dispatch(loginSuccess(res.data));
+                this.props.dispatch(registerSuccess(res.data));
                 browserHistory.push('/');
             }).catch(error => {
                 this.setState({ serverError: error.response.data.message });
-                this.props.dispatch(loginFailure(error.response.data));
+                this.props.dispatch(registerFailure(error.response.data));
             })
         }
         this.setState({ error: error });
@@ -70,7 +80,7 @@ class LoginPage extends Component {
                 <GridColumn computer={4} tablet={10} mobile={16} >
                     <GridRow centered>
                         <br /><Image centered src={config.logo} size='tiny' />
-                        <Header as='h1' textAlign='center'>Log In</Header><br />
+                        <Header as='h1' textAlign='center'>Register</Header><br />
                     </GridRow>
                     <GridRow centered>
                         <Form as={Segment} textAlign='center'>
@@ -78,14 +88,15 @@ class LoginPage extends Component {
                             <Message visible={isNotEmpty(error.email)} error header={formMsg.invalid_email} content={error.email} />
                             <Form.Input name='password' onChange={this.handleChange} icon='lock' iconPosition='left' placeholder='Password' type='password' fluid error={isNotEmpty(error.password)} />
                             <Message visible={isNotEmpty(error.password)} error header={formMsg.invalid_password} content={error.password} />
-                            <Form.Button onClick={this.handleOnClickLogin} fluid color='green'>Log In</Form.Button>
-                            <a href='/#'>Forgot password?</a>
+                            <Form.Input name='passwordConfirm' onChange={this.handleChange} icon='lock' iconPosition='left' placeholder='Confirm Password' type='password' fluid error={isNotEmpty(error.passwordConfirm)} />
+                            <Message visible={isNotEmpty(error.passwordConfirm)} error header={formMsg.invalid_confirm} content={error.passwordConfirm} />
+                            <Form.Button onClick={this.handleOnClickRegister} fluid color='red'>Register</Form.Button>
+                            <a href='/login'>Back to Login</a>
                         </Form>
                     </GridRow>
                     <GridRow centered>
                         <br />
                         <Header textAlign='center' color='red' as='h4' visible={this.state.serverError} content={this.state.serverError} />
-                        <Header textAlign='center' as='h4'>Dont' have an account?<a href='/register'> Register</a></Header>
                     </GridRow>
                 </GridColumn>
             </Grid>
@@ -97,4 +108,4 @@ const mapStateToProps = (state) => {
     return { authentication: state.authentication }
 }
 
-export default connect(mapStateToProps)(LoginPage);
+export default connect(mapStateToProps)(RegisterPage);

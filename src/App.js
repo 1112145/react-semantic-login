@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import LoginPage from './containers/LoginPage';
+import LoginPage from './containers/Auth/LoginPage';
 import AppLoader from './components/AppLoader';
 
 import PrivateRoute from './components/PrivateRoute';
-import HomePage from './containers/HomePage';
+import HomePage from './containers/Home/HomePage';
 import { browserHistory } from './common/helper';
-import Setting from './containers/Setting';
-import RegisterPage from './containers/RegisterPage';
+import Setting from './containers/Setting/Setting';
+import RegisterPage from './containers/Auth/RegisterPage';
 
 export default class App extends Component {
   render() {

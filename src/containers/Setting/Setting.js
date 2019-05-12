@@ -1,5 +1,5 @@
 import React from 'react'
-import { withHeader } from './AppHeader';
+import { withHeader } from '../Template/AppHeader';
 
 const Setting = () => {
     return (
