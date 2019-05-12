@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Menu, Sidebar, Responsive, Icon, Image } from 'semantic-ui-react';
 import _ from 'lodash';
+import './styles.scss';
 
 const NavBarMobile = (props) => {
     return <Sidebar.Pushable>
@@ -45,7 +46,7 @@ const NavBarDesktop = (props) => {
 }
 
 const NavBarChildren = ({ children }) => (
-    <div style={{ marginTop: "5em" }}>{children}</div>
+    <div className="navbar-children">{children}</div>
 );
 
 export default class NavBar extends Component {
