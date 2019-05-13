@@ -79,7 +79,7 @@ class LoginPage extends Component {
                             <Form.Input name='password' onChange={this.handleChange} icon='lock' iconPosition='left' placeholder='Password' type='password' fluid error={isNotEmpty(error.password)} />
                             <Message visible={isNotEmpty(error.password)} error header={formMsg.invalid_password} content={error.password} />
                             <Form.Button onClick={this.handleOnClickLogin} fluid color='green'>Log In</Form.Button>
-                            <a href='/#'>Forgot password?</a>
+                            <a href='/forgot-password'>Forgot password?</a>
                         </Form>
                     </GridRow>
                     <GridRow centered>

@@ -9,6 +9,7 @@ import HomePage from './containers/Home/HomePage';
 import { browserHistory } from './common/helper';
 import Setting from './containers/Setting/Setting';
 import RegisterPage from './containers/Auth/RegisterPage';
+import ForgotPassword from './containers/Auth/ForgotPassword';
 
 export default class App extends Component {
   render() {
@@ -18,6 +19,7 @@ export default class App extends Component {
           <Switch>
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
+            <Route path="/forgot-password" component={ForgotPassword} />
             <PrivateRoute path="/setting" component={Setting} />
             <PrivateRoute exact path="/" component={HomePage} />
           </Switch>
