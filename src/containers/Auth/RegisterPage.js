@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Grid, GridRow, GridColumn, Form, Header, Segment, Image, Message } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+
 import { formMsg, localStorageConstant } from '../../constant';
 import { isEmpty, isNotEmpty, isNotEmail, validate } from '../../common/customValidator';
 import { register } from '../../services/user.service';
@@ -91,7 +93,7 @@ class RegisterPage extends Component {
                             <Form.Input name='passwordConfirm' onChange={this.handleChange} icon='lock' iconPosition='left' placeholder='Confirm Password' type='password' fluid error={isNotEmpty(error.passwordConfirm)} />
                             <Message visible={isNotEmpty(error.passwordConfirm)} error header={formMsg.invalid_confirm} content={error.passwordConfirm} />
                             <Form.Button onClick={this.handleOnClickRegister} fluid color='red'>Register</Form.Button>
-                            <a href='/login'>Back to Login</a>
+                            <Link to='/login'>Back to Login</Link>
                         </Form>
                     </GridRow>
                     <GridRow centered>

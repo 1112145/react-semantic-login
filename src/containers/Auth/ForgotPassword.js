@@ -1,5 +1,6 @@
 import React from 'react'
 import { Grid, GridRow, GridColumn, Form, Header, Segment, Image, Container } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import config from '../../config';
 
 const ForgotPassword = (props) => {
@@ -21,7 +22,7 @@ const ForgotPassword = (props) => {
         </GridRow>
         <GridRow centered>
             <br />
-            <Header textAlign='center' as='h4'><a href='/login'> Back to login</a></Header>
+            <Header textAlign='center' as='h4'><Link to='/login'> Back to login</Link></Header>
         </GridRow>
     </GridColumn>
 </Grid>

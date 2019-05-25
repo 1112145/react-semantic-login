@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import './App.scss';
 import LoginPage from './containers/Auth/LoginPage';
+import RegisterPage from './containers/Auth/RegisterPage';
 import AppLoader from './components/AppLoader';
 
 import PrivateRoute from './components/PrivateRoute';
-import HomePage from './containers/Home/HomePage';
 import { browserHistory } from './common/helper';
-import Setting from './containers/Setting/Setting';
-import RegisterPage from './containers/Auth/RegisterPage';
 import ForgotPassword from './containers/Auth/ForgotPassword';
+import Dashboard from './containers/Dashboard';
+import UserManagement from './containers/UserManagement';
 
 export default class App extends Component {
   render() {
@@ -20,8 +20,8 @@ export default class App extends Component {
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
             <Route path="/forgot-password" component={ForgotPassword} />
-            <PrivateRoute path="/setting" component={Setting} />
-            <PrivateRoute exact path="/" component={HomePage} />
+            <PrivateRoute path="/user-management" component={UserManagement} />
+            <PrivateRoute exact path="/" component={Dashboard} />
           </Switch>
         </Router>
         <AppLoader></AppLoader>

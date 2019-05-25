@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Grid, GridRow, GridColumn, Form, Header, Segment, Image, Message } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+
 import { formMsg, localStorageConstant } from '../../constant';
 import { isEmpty, isNotEmpty, isNotEmail, validate } from '../../common/customValidator';
 import { login } from '../../services/user.service';
@@ -19,8 +21,7 @@ class LoginPage extends Component {
         this.state = {
             email: '',
             password: '',
-            error: {},
-            serverError: ''
+            error: {}
         }
 
         this.validator = {
@@ -29,6 +30,8 @@ class LoginPage extends Component {
                 { method: isNotEmail, message: formMsg.wrong_email_format }],
             password: [{ method: isEmpty, message: formMsg.empty_password }]
         }
+
+        this.serverError = '';
 
     }
 
@@ -41,18 +44,24 @@ class LoginPage extends Component {
     handleOnClickLogin = () => {
         const { email, password } = this.state;
         const dataObject = { email: email, password: password };
+        this.serverError = '';
+
         const error = validate(dataObject, this.validator);
         if (_.isEmpty(error)) {
+
             login({ email: email, password: password }).then(res => {
                 this.setState({ serverError: '' });
                 if (res.data.access_token) {
-                    localStorage.setItem(localStorageConstant.USER, JSON.stringify(res.data.data));
+                    localStorage.setItem(localStorageConstant.USER, JSON.stringify(res.data));
                 }
                 this.props.dispatch(loginSuccess(res.data));
                 browserHistory.push('/');
-            }).catch(error => {
-                this.setState({ serverError: error.response.data.message });
-                this.props.dispatch(loginFailure(error.response.data));
+            }).catch(err => {
+                if (err.response) {
+                    this.serverError = err.response.data.message;
+                    this.props.dispatch(loginFailure(err.response.data));
+                }
+
             })
         }
         this.setState({ error: error });
@@ -78,14 +87,15 @@ class LoginPage extends Component {
                             <Message visible={isNotEmpty(error.email)} error header={formMsg.invalid_email} content={error.email} />
                             <Form.Input name='password' onChange={this.handleChange} icon='lock' iconPosition='left' placeholder='Password' type='password' fluid error={isNotEmpty(error.password)} />
                             <Message visible={isNotEmpty(error.password)} error header={formMsg.invalid_password} content={error.password} />
+                            <Message visible={this.serverError !== ''} error content={this.serverError} />
                             <Form.Button onClick={this.handleOnClickLogin} fluid color='green'>Log In</Form.Button>
-                            <a href='/forgot-password'>Forgot password?</a>
+                            <Link to='/forgot-password'>Forgot password?</Link>
                         </Form>
                     </GridRow>
                     <GridRow centered>
                         <br />
                         <Header textAlign='center' color='red' as='h4' visible={this.state.serverError} content={this.state.serverError} />
-                        <Header textAlign='center' as='h4'>Dont' have an account?<a href='/register'> Register</a></Header>
+                        <Header textAlign='center' as='h4'>Dont' have an account?<Link to='/register'> Register</Link></Header>
                     </GridRow>
                 </GridColumn>
             </Grid>
