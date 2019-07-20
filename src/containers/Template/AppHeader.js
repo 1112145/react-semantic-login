@@ -7,7 +7,6 @@ import { logout } from '../../actions/user.action';
 import { browserHistory } from '../../common/helper';
 import config from '../../config';
 
-import './styles.scss';
 
 class AppHeader extends Component {
 

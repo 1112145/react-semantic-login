@@ -9,7 +9,6 @@ import PrivateRoute from './components/PrivateRoute';
 import { browserHistory } from './common/helper';
 import ForgotPassword from './containers/Auth/ForgotPassword';
 import Dashboard from './containers/Dashboard';
-import UserManagement from './containers/UserManagement';
 
 export default class App extends Component {
   render() {
@@ -20,7 +19,6 @@ export default class App extends Component {
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
             <Route path="/forgot-password" component={ForgotPassword} />
-            <PrivateRoute path="/user-management" component={UserManagement} />
             <PrivateRoute exact path="/" component={Dashboard} />
           </Switch>
         </Router>
